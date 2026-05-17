@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exposed: The Open Book</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f5f0e8; color: #1a1a1a; }
+nav { position: fixed; top: 0; left: 0; right: 0; background: #f5f0e8; border-bottom: 1px solid #d4cec4; padding: 1.2rem 2rem; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #1a1a1a; }
+.logo span { color: #ff007f; }
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 2rem 60px; max-width: 900px; margin: 0 auto; }
+.tag { display: inline-block; border: 1px solid #ff007f; color: #ff007f; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; margin-bottom: 2rem; }
+h1 { font-family: 'Playfair Display', serif; font-size: 5rem; line-height: 1.05; margin-bottom: 1.5rem; }
+h1 em { color: #ff007f; font-style: italic; }
+.subtitle { font-size: 1.1rem; color: #666; max-width: 540px; line-height: 1.8; margin-bottom: 2.5rem; }
+.btn { display: inline-block; background: #ff007f; color: #fff; padding: 0.9rem 2rem; font-weight: 600; font-size: 0.9rem; text-decoration: none; border-radius: 4px; width: fit-content; }
+#what { background: #ede8df; padding: 100px 2rem; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+h2 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 1.5rem; }
+.section-text { font-size: 1rem; color: #666; max-width: 620px; line-height: 1.9; }
+#footprint { background: #f5f0e8; padding: 100px 2rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.card { background: #ede8df; border: 1px solid #d4cec4; border-radius: 8px; padding: 1.5rem; }
+.card:hover { border-color: #ff007f; }
+.card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+.card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; }
+.card p { font-size: 0.875rem; color: #666; line-height: 1.7; }
+#cases { background: #ede8df; padding: 100px 2rem; }
+.cases-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+.case { background: #f5f0e8; border: 1px solid #d4cec4; border-left: 3px solid #ff007f; border-radius: 0 8px 8px 0; padding: 1.75rem; }
+.case h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; }
+.case p { font-size: 0.875rem; color: #666; line-height: 1.7; }
+#protect { background: #ede8df; padding: 100px 2rem; }
+.protect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2rem; }
+.protect-block h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #d4cec4; }
+.protect-list { list-style: none; }
+.protect-list li { font-size: 0.9rem; color: #666; line-height: 1.6; padding: 0.5rem 0 0.5rem 1.2rem; border-bottom: 1px solid #e0dbd2; position: relative; }
+.protect-list li::before { content: "→"; color: #ff007f; position: absolute; left: 0; }
+footer { border-top: 1px solid #d4cec4; padding: 3rem 2rem; text-align: center; color: #888; font-size: 0.82rem; }
+footer strong { color: #1a1a1a; font-family: 'Playfair Display', serif; }
+nav { display: flex; justify-content: space-between; align-items: center; }
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav ul a { color: #666; text-decoration: none; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+nav ul a:hover { color: #ff007f; }
+.tools { background: #f5f0e8; padding: 60px 2rem 0; }
+.tool-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.tool-box { background: #ede8df; border: 1px solid #d4cec4; border-radius: 8px; padding: 1.75rem; }
+.tool-box h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.tool-desc { font-size: 0.85rem; color: #666; margin-bottom: 1rem; line-height: 1.6; }
+.tool-note { font-size: 0.78rem; color: #888; margin-top: 0.75rem; }
+input[type="password"], input[type="email"] { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d4cec4; border-radius: 4px; background: #f5f0e8; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #1a1a1a; margin-bottom: 1rem; }
+input:focus { outline: none; border-color: #ff007f; }
+.strength-bar-wrap { background: #d4cec4; border-radius: 999px; height: 6px; margin-bottom: 0.75rem; }
+.strength-bar { height: 100%; border-radius: 999px; width: 0%; transition: all 0.3s; }
+.strength-label { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; }
+.strength-tips { list-style: none; font-size: 0.8rem; color: #666; display: flex; flex-direction: column; gap: 0.3rem; }
+.strength-tips li::before { content: "✗ "; color: #ff007f; }
+.strength-tips li.pass::before { content: "✓ "; color: #16a34a; }
+.check-btn { background: #ff007f; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; width: 100%; }
+.check-btn:hover { background: #d4006b; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">EXPOSED: <span>the open book</span></div>
+  <ul>
+    <li><a href="#what">OSINT</a></li>
+    <li><a href="#footprint">Your Data</a></li>
+    <li><a href="#cases">Real Cases</a></li>
+    <li><a href="#protect">Protect</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <span class="tag">Digital Footprint Awareness</span>
+  <h1>You're already<br><em>an open book.</em></h1>
+  <p class="subtitle">Everything you post, share, and register online leaves a trail. Attackers use OSINT to piece it all together — without hacking a single thing.</p>
+  <a href="#what" class="btn">Find out how →</a>
+</section>
+
+<section id="what">
+  <div class="section-inner">
+    <span class="tag">The Basics</span>
+    <h2>What is OSINT?</h2>
+    <p class="section-text">Open Source Intelligence (OSINT) is the practice of collecting information from publicly available sources — social media, public records, websites, and photos. Criminals use these exact techniques to profile their targets before launching attacks, without touching a piece of malware.</p>
+  </div>
+</section>
+
+<section id="footprint">
+  <div class="section-inner">
+    <span class="tag">Your Digital Footprint</span>
+    <h2>Five ways you're exposed</h2>
+    <p class="section-text">These are the five primary categories of data that attackers can find and exploit about you.</p>
+    <div class="cards">
+      <div class="card">
+      
+        <h3>Social Media Data</h3>
+        <p>Profile details, tagged photos, check-ins, and daily routines shared across Facebook, Instagram, and TikTok.</p>
+      </div>
+      <div class="card">
+        
+        <h3>Professional Data</h3>
+        <p>LinkedIn profiles revealing your role, colleagues, and projects. Company websites listing staff names and email formats.</p>
+      </div>
+      <div class="card">
+        
+        <h3>Photo & File Metadata</h3>
+        <p>Every photo on your phone stores hidden GPS coordinates, device model, and timestamp without you knowing.</p>
+      </div>
+      <div class="card">
+        
+        <h3>Exposed Credentials</h3>
+        <p>Your email and password may already be in a public breach database. One old breach can unlock multiple accounts.</p>
+      </div>
+      <div class="card">
+        
+        <h3>Technical & Domain Data</h3>
+        <p>WHOIS records and DNS lookups can reveal your hosting provider and sometimes your personal contact details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="section-inner">
+    <span class="tag">Real Cases</span>
+    <h2>It happens to real people</h2>
+    <p class="section-text">These are real, publicly documented cases where OSINT exposed individuals in ways they never expected.</p>
+    <div class="cases-list">
+      <div class="case">
+        <h3>John McAfee — Location Exposed Through Photo Metadata</h3>
+        <p>In 2012, antivirus pioneer John McAfee was hiding from authorities in Guatemala. A journalist from Vice Magazine photographed him and published the image online. The photo's embedded EXIF metadata contained GPS coordinates that revealed his exact location. He was found within hours.</p>
+      </div>
+      <div class="case">
+        <h3>Bellingcat — Identifying War Criminals Through OSINT</h3>
+        <p>Investigative outlet Bellingcat used entirely open source techniques — social media posts, satellite imagery, and public records — to identify the soldiers responsible for shooting down flight MH17 in 2014. No hacking was involved, only publicly available information.</p>
+      </div>
+      <div class="case">
+        <h3>Russian Trolls — Exposed Through Digital Footprints</h3>
+        <p>In 2018, researchers identified Russian Internet Research Agency operatives running fake social media accounts by cross-referencing usernames, profile photos, and posting patterns across multiple platforms — all publicly available data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="protect">
+  <div class="tools">
+  <div class="tool-inner">
+    
+    <div class="tool-box">
+      <h3>Password Strength Checker</h3>
+      <p class="tool-desc">Type a password to check how strong it is. Never use a real password you actually use.</p>
+      <input type="password" id="password-input" placeholder="Type a password..." />
+      <div class="strength-bar-wrap">
+        <div class="strength-bar" id="strength-bar"></div>
+      </div>
+      <p class="strength-label" id="strength-label">Start typing to check your password</p>
+      <ul class="strength-tips" id="strength-tips"></ul>
+    </div>
+
+    <div class="tool-box">
+      <h3>Check if Your Email Was Breached</h3>
+      <p class="tool-desc">Enter your email to check if it has appeared in a known data breach on HaveIBeenPwned.</p>
+      <input type="email" id="email-input" placeholder="Enter your email..." />
+      <button onclick="checkEmail()" class="check-btn">Check My Email →</button>
+      <p class="tool-note">You will be taken to HaveIBeenPwned.com — a trusted security resource.</p>
+    </div>
+
+  </div>
+</div>
+  <div class="section-inner">
+    <span class="tag">What You Can Do</span>
+    <h2>Protect yourself</h2>
+    <p class="section-text">Small changes to your online habits can significantly reduce your exposure.</p>
+    <div class="protect-grid">
+      <div class="protect-block">
+        <h3>Social Media</h3>
+        <ul class="protect-list">
+          <li>Audit your privacy settings on every platform</li>
+          <li>Remove your date of birth and phone from public profiles</li>
+          <li>Be cautious about tagging your real-time location</li>
+        </ul>
+      </div>
+      <div class="protect-block">
+        <h3>Photos & Files</h3>
+        <ul class="protect-list">
+          <li>Disable location services for your camera app</li>
+          <li>Strip EXIF data before sharing photos publicly</li>
+          <li>Remove metadata from documents before uploading</li>
+        </ul>
+      </div>
+      <div class="protect-block">
+        <h3>Passwords & Accounts</h3>
+        <ul class="protect-list">
+          <li>Check haveibeenpwned.com for your email addresses</li>
+          <li>Use a unique strong password for every account</li>
+          <li>Enable two-factor authentication everywhere</li>
+        </ul>
+      </div>
+      <div class="protect-block">
+        <h3>Professional Presence</h3>
+        <ul class="protect-list">
+          <li>Think carefully about what your LinkedIn reveals</li>
+          <li>Avoid listing internal tools or project names publicly</li>
+          <li>Make your connections list private</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Exposed: The Open Book</strong> — A digital footprint awareness project</p>
+  <p>A website made by Mominah Rasul for my dissertation. No personal data is collected by this website.</p>
+</footer>
+<script>
+  // Password strength checker
+  document.getElementById('password-input').addEventListener('input', function() {
+    const val = this.value;
+    const bar = document.getElementById('strength-bar');
+    const label = document.getElementById('strength-label');
+    const tips = document.getElementById('strength-tips');
+
+    const checks = [
+      { test: val.length >= 8, text: 'At least 8 characters' },
+      { test: /[A-Z]/.test(val), text: 'At least one uppercase letter' },
+      { test: /[0-9]/.test(val), text: 'At least one number' },
+      { test: /[^A-Za-z0-9]/.test(val), text: 'At least one special character (!@#$...)' },
+      { test: val.length >= 12, text: 'At least 12 characters for extra strength' }
+    ];
+
+    const score = checks.filter(c => c.test).length;
+
+    const levels = [
+      { label: 'Very Weak', color: '#ef4444', width: '10%' },
+      { label: 'Weak', color: '#f97316', width: '30%' },
+      { label: 'Fair', color: '#eab308', width: '55%' },
+      { label: 'Strong', color: '#22c55e', width: '80%' },
+      { label: 'Very Strong', color: '#16a34a', width: '100%' }
+    ];
+
+    const level = val.length === 0 ? null : levels[Math.min(score, 4)];
+
+    if (!level) {
+      bar.style.width = '0%';
+      label.textContent = 'Start typing to check your password';
+      label.style.color = '#666';
+      tips.innerHTML = '';
+      return;
+    }
+
+    bar.style.width = level.width;
+    bar.style.background = level.color;
+    label.textContent = level.label;
+    label.style.color = level.color;
+
+    tips.innerHTML = checks.map(c =>
+      `<li class="${c.test ? 'pass' : ''}">${c.text}</li>`
+    ).join('');
+  });
+
+  // HaveIBeenPwned checker
+  function checkEmail() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) { alert('Please enter an email address'); return; }
+    window.open('https://haveibeenpwned.com/account/' + encodeURIComponent(email), '_blank');
+  }
+</script>
+</body>
+</html>
